@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "BusinesLogic.Service";
+
+package authorization;
+
+service Authorization {
+  rpc SignIn (SignInRequest) returns (SignInResponse);
+}
+
+
+message SignInRequest {
+  string phoneNumber = 1;
+  string password = 2;
+}
+
+message SignInResponse {
+  string token = 1;
+}

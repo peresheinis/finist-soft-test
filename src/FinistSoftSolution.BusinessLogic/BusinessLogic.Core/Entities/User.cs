@@ -5,11 +5,16 @@ namespace BusinessLogic.Core.Entities;
 public class User : EntityBase<Guid>
 {
     private readonly List<BankAccount>? _bankAccounts;
+
+    private User() { }
+
     private User(
         FullName fullName,
-        PhoneNumber phoneNumber,
+        string phoneNumber,
         string password)
     {
+        _bankAccounts = new List<BankAccount>();
+
         FullName = fullName;
         PhoneNumber = phoneNumber;
         Password = password;
@@ -23,7 +28,7 @@ public class User : EntityBase<Guid>
     /// <summary>
     /// Номер телефона пользователя
     /// </summary>
-    public PhoneNumber PhoneNumber { get; private set; }
+    public string PhoneNumber { get; private set; }
 
     /// <summary>
     /// Пароль, без Hash и без Salt
@@ -33,7 +38,7 @@ public class User : EntityBase<Guid>
     /// <summary>
     /// Счета клиента
     /// </summary>
-    public IReadOnlyCollection<BankAccount>? BankAccounts { get; private set; }
+    public IReadOnlyCollection<BankAccount>? BankAccounts => _bankAccounts;
 
     /// <summary>
     /// Добавить банковский счёт пользователю
@@ -79,7 +84,7 @@ public class User : EntityBase<Guid>
     /// </summary>
     /// <param name="phoneNumber"></param>
     /// <param name="isPhoneNumberUniqueValidation"></param>
-    public async Task SetPhoneNumberAsync(PhoneNumber phoneNumber, Func<PhoneNumber, Task<bool>> isPhoneNumberUniqueValidation)
+    public async Task SetPhoneNumberAsync(string phoneNumber, Func<string, Task<bool>> isPhoneNumberUniqueValidation)
     {
         if (await isPhoneNumberUniqueValidation(phoneNumber))
         {
@@ -89,7 +94,7 @@ public class User : EntityBase<Guid>
         PhoneNumber = phoneNumber;
     }
 
-    public static async Task<User> CreateAsync(PhoneNumber phoneNumber, FullName fullName, string password, Func<PhoneNumber, Task<bool>> isPhoneNumberUniqueValidation)
+    public static async Task<User> CreateAsync(string phoneNumber, string password, FullName fullName, Func<string, Task<bool>> isPhoneNumberUniqueValidation)
     {
         if (phoneNumber is null)
         {

@@ -39,11 +39,6 @@ public class PhoneNumber : IEquatable<PhoneNumber>
             return Equals(numberValue);
         }
 
-        if (obj is string numberString)
-        { 
-            return Equals(numberString);
-        }
-
         return false;
     }
 
@@ -55,16 +50,6 @@ public class PhoneNumber : IEquatable<PhoneNumber>
         }
 
         return string.Equals(Number, other.Number, StringComparison.OrdinalIgnoreCase);
-    }
-
-    public bool Equals(string? other)
-    {
-        if (other is null)
-        {
-            return false;
-        }
-
-        return string.Equals(Number, other, StringComparison.OrdinalIgnoreCase);
     }
 
     public override int GetHashCode()

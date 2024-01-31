@@ -2,7 +2,11 @@
 using BusinessLogic.Core.Repositories;
 using BusinessLogic.Infrastructure;
 using BusinessLogic.Infrastructure.Repositories;
+using BusinessLogic.Infrastructure.Seeds;
 using BusinessLogic.Service.Configurations;
+using BusinessLogic.Service.Providers;
+using BusinessLogic.Service.Validators;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -78,19 +82,56 @@ public static class StartupExtensions
         return builder;
     }
 
+    public static WebApplicationBuilder AddAuthorization(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<IPasswordHashProvider, PasswordHashProvider>();
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Добавить конфигурацию для нулевого пользователя
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <returns></returns>
+    public static WebApplicationBuilder AddInitialUser(this WebApplicationBuilder builder)
+    {
+        builder.Services
+            .AddWithValidation<InitialUserSettings, InitialUserSettingsValidator>("InitialUser");
+
+        builder.Services
+            .AddScoped<InitialUserSeed>();
+
+        return builder;
+    }
+
     // public static WebApplicationBuilder AddLogging(this WebApplicationBuilder webApplicationBuilder) { }
     // Можно добавить логирования, в основном я использую Serilog + Seq
+
+    /// <summary>
+    /// Создать нулевого пользователя
+    /// </summary>
+    /// <param name="app"></param>
+    /// <returns></returns>
+    public static async Task SeedInitialUserAsync(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+
+        var initialUserSeed = scope.ServiceProvider.GetRequiredService<InitialUserSeed>();
+
+        await initialUserSeed.ExecuteAsync();
+    }
 
     /// <summary>
     /// Выполнить миграции БД
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
-    public static Task UseMigrationsAsync(this WebApplication app)
+    public static async Task UseMigrationsAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         using var database = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 
-        return database.Database.MigrateAsync();
+        await database.Database.MigrateAsync();
     }
 }

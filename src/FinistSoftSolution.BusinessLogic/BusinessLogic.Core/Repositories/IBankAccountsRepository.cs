@@ -21,6 +21,13 @@ public interface IBankAccountsReadRepository : IReadRepositoryBase<BankAccount, 
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public Task<IReadOnlyCollection<BankAccount>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Получить банковский счет по номеру
+    /// </summary>
+    /// <param name="number"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public Task<BankAccount?> GetByNumberAsync(string number, CancellationToken cancellationToken = default);
 }
 
 /// <summary>

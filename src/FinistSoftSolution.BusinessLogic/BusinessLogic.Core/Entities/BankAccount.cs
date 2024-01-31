@@ -7,6 +7,7 @@ namespace BusinessLogic.Core.Entities;
 /// </summary>
 public class BankAccount : EntityBase<Guid>
 {
+    private BankAccount() { }
     /// <summary>
     /// Банковский счёт пользователя
     /// </summary>
@@ -48,7 +49,7 @@ public class BankAccount : EntityBase<Guid>
             throw new ArgumentNullException(nameof(accountNumber), $"{accountNumber} cannot be null!");
         }
 
-        if (await isAccountNumberUniqueValidation(accountNumber))
+        if (!await isAccountNumberUniqueValidation(accountNumber))
         {
             throw new InvalidOperationException("Account number is not unique!");
         }

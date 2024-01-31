@@ -27,11 +27,15 @@ public class BankAccountsRepository : RepositoryBase<BankAccount>, IBankAccounts
 
     public Task<BankAccount?> GetByIdAsync(Guid key, CancellationToken cancellationToken = default) =>
         ApplySpecification(new BankAccountsByIdSpecification(key))
-            .SingleOrDefaultAsync(cancellationToken);
+           .SingleOrDefaultAsync(cancellationToken);
 
     public void Remove(BankAccount entity) =>
         DbSet.Remove(entity);
 
     public void Update(BankAccount entity) =>
         DbSet.Update(entity);
+
+    public Task<BankAccount?> GetByNumberAsync(string number, CancellationToken cancellationToken = default) =>
+        ApplySpecification(new BankAccountsByNumberSpecification(number))
+            .SingleOrDefaultAsync(cancellationToken);
 }

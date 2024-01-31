@@ -21,8 +21,8 @@ public class UsersRepository : RepositoryBase<User>, IUsersRepository
         ApplySpecification(new UserByIdSpecification(key))
             .SingleOrDefaultAsync(cancellationToken);
 
-    public Task<User?> GetByPhoneAsync(string phoneNumber, CancellationToken cancellationToken = default) =>
-        ApplySpecification(new UserByPhoneSpecification(phoneNumber))
+    public async Task<User?> GetByPhoneAsync(string phoneNumber, CancellationToken cancellationToken = default) =>
+        await ApplySpecification(new UserByPhoneSpecification(phoneNumber))
             .SingleOrDefaultAsync(cancellationToken);
 
     public void Remove(User entity) =>

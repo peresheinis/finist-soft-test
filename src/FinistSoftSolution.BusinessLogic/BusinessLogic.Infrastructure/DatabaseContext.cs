@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Core.Entities;
+using BusinessLogic.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Infrastructure;
@@ -22,6 +23,7 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // ToDo: добавить конфигурацию 
+        modelBuilder.ApplyConfiguration(new BankAccountConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
     }
 }

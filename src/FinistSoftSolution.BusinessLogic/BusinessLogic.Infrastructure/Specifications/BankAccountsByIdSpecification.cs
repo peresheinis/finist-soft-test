@@ -9,3 +9,11 @@ internal sealed class BankAccountsByIdSpecification : SpecificationBase<BankAcco
     {
     }
 }
+
+internal sealed class BankAccountsByNumberSpecification : SpecificationBase<BankAccount>
+{
+    public BankAccountsByNumberSpecification(string number)
+        : base(bankAccount => bankAccount.AccountNumber.Equals(number))
+    {
+    }
+}
