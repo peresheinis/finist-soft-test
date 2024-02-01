@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\FinistSoftSolution.Kernel\Kernel.Shared\Kernel.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

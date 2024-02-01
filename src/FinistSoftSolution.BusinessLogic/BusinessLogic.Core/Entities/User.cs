@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Core.ValueObjects;
+using Kernel.Shared.Exceptions;
 
 namespace BusinessLogic.Core.Entities;
 
@@ -44,6 +45,7 @@ public class User : EntityBase<Guid>
     /// Добавить банковский счёт пользователю
     /// </summary>
     /// <param name="bankAccount"></param>
+    /// <exception cref="InvalidOperationException"></exception>
     public void AddBankAccount(BankAccount bankAccount)
     {
         if (_bankAccounts is null)
@@ -84,16 +86,27 @@ public class User : EntityBase<Guid>
     /// </summary>
     /// <param name="phoneNumber"></param>
     /// <param name="isPhoneNumberUniqueValidation"></param>
+    /// <exception cref="ConflictException"></exception>
     public async Task SetPhoneNumberAsync(string phoneNumber, Func<string, Task<bool>> isPhoneNumberUniqueValidation)
     {
         if (await isPhoneNumberUniqueValidation(phoneNumber))
         {
-            throw new InvalidOperationException("Phone number is not unique.");
+            throw ConflictException.AlreadyExist($"This phone number is already in use.");
         }
 
         PhoneNumber = phoneNumber;
     }
 
+    /// <summary>
+    /// Создать пользователя
+    /// </summary>
+    /// <param name="phoneNumber">Номер телефона</param>
+    /// <param name="password">Пароль</param>
+    /// <param name="fullName">Полное имя пользователя</param>
+    /// <param name="isPhoneNumberUniqueValidation">Проверка на уникальность номера телефона</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ConflictException"></exception>
     public static async Task<User> CreateAsync(string phoneNumber, string password, FullName fullName, Func<string, Task<bool>> isPhoneNumberUniqueValidation)
     {
         if (phoneNumber is null)
@@ -113,7 +126,7 @@ public class User : EntityBase<Guid>
 
         if (!await isPhoneNumberUniqueValidation(phoneNumber))
         {
-            throw new InvalidOperationException($"{phoneNumber} is not unique!");
+            throw ConflictException.AlreadyExist($"This phone number is already in use.");
         }
 
         return new User(fullName, phoneNumber, password);

@@ -2,8 +2,10 @@
 
 public class InitialUserSettings
 {
+    /// <summary>
+    /// Название секции конфигурации
+    /// </summary>
     public const string ConfigurationSection = "InitialUser";
-
     /// <summary>
     /// Номер телефона начального пользователя
     /// </summary>

@@ -33,8 +33,9 @@ public class AuthorizationService : Authorization.AuthorizationBase
                 .PermissionDenied("Не верный логин или пароль.");
         }
 
+        // здесь user.Password как хеш, не стал усложнять
         if (!await _passwordHashProvider.ValidateAsync(
-            request.Password, user.Password)) // здесь user.Password как хеш, не стал усложнять
+            request.Password, user.Password)) 
         {
             throw ConflictException
                 .PermissionDenied("Не верный логин или пароль.");

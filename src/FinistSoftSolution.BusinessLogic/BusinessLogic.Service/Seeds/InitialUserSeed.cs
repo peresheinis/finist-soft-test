@@ -94,8 +94,8 @@ internal sealed class InitialUserSeed : SeedBase
     /// Зарандомить номер карты пользователя
     /// </summary>
     /// <returns></returns>
-    private AccountNumber CreateAccountNumber() => // Так делать не хорошо, рандомить не нужно можно
-                                                   // сделать иначе, так как первые каждые 4 цифры что-то значат.
+    private AccountNumber CreateAccountNumber() => // Так делать не хорошо, рандомить не нужно, можно
+                                                   // сделать иначе, так как каждые 4 цифры что-то значат (вроде).
                                                    // Но суть ясна
         new AccountNumber(
             $"{Random.Shared.Next(1000, 9999)}" +
