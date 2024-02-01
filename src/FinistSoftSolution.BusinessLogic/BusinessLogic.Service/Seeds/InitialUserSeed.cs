@@ -73,6 +73,9 @@ internal sealed class InitialUserSeed : SeedBase
     /// <returns></returns>
     private async Task<bool> IsPhoneNumberUnique(string phoneNumber)
     {
+        // Тут можно реализовать дополнительный метод
+        // в репозитории IsUniqueByPhone<bool>(phoneNumber: string)
+
         var user = await _usersRepository.GetByPhoneAsync(phoneNumber);
 
         return user is null;
@@ -85,6 +88,9 @@ internal sealed class InitialUserSeed : SeedBase
     /// <returns></returns>
     private async Task<bool> IsBankAccountUnique(AccountNumber bankAccountNumber)
     {
+        // Тут можно реализовать дополнительный метод
+        // в репозитории IsUniqueByNumber<bool>(bankAccountNumber: string)
+
         var account = await _bankAccountsRepository.GetByNumberAsync(bankAccountNumber.Value);
 
         return account is null;

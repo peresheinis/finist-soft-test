@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "BusinessLogic.Service.Protos";
+import "google/protobuf/empty.proto";
+package accounts;
+
+service Accounts {
+	rpc GetAll (google.protobuf.Empty) returns (GetAllAccountsResponse);
+}
+
+message GetAllAccountsResponse {
+	repeated BankAccountModel accounts = 1;
+}
+
+message BankAccountModel
+{
+	string id					= 1;
+	string userId				= 2;
+	string accountNumber		= 3;
+	BankAccountType accountType = 4;
+}
+
+enum BankAccountType {
+	Urgent		= 0;
+	OnDemand	= 1;
+	Card		= 2;
+}

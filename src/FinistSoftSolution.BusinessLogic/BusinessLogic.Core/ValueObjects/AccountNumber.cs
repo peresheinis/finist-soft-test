@@ -11,10 +11,12 @@ public class AccountNumber : IEquatable<AccountNumber>
     /// Regex паттерн для валидации номера карты
     /// </summary>
     public const string RegexPattern = @"^\d{20}$";
+
     /// <summary>
     /// Номер карты
     /// </summary>
     public string Value { get; }
+
     /// <summary>
     /// Номер карты
     /// </summary>

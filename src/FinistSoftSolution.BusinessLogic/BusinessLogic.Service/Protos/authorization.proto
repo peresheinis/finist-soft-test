@@ -1,11 +1,12 @@
 syntax = "proto3";
 
-option csharp_namespace = "BusinesLogic.Service";
+option csharp_namespace = "BusinessLogic.Service.Protos";
 
 package authorization;
 
 service Authorization {
   rpc SignIn (SignInRequest) returns (SignInResponse);
+  rpc SignOut (SignInRequest) returns (SignInResponse);
 }
 
 

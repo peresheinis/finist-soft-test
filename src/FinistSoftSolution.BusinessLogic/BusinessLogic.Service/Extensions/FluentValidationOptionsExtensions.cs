@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace BusinessLogic.Service.Extensions;
 
-public static class FluentValidationOptionsExtensions
+internal static class FluentValidationOptionsExtensions
 {
     public static OptionsBuilder<TOptions> AddWithValidation<TOptions, TValidator>(
         this IServiceCollection services,

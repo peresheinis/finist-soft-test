@@ -9,10 +9,10 @@ public class InitialUserSettingsValidator : AbstractValidator<InitialUserSetting
     {
         RuleFor(x => x.PhoneNumber)
             .NotEmpty()
-            .WithMessage("Please configure phone number of initial user!");
+            .WithMessage($"Please configure phone number in {nameof(InitialUserSettings)}!");
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .WithMessage("Please configure password of initial user!");
+            .WithMessage($"Please configure password in {nameof(InitialUserSettings)}!");
     }
 }

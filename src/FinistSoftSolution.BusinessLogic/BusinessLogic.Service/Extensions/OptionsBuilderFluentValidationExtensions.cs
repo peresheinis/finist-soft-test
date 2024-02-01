@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace BusinessLogic.Service.Extensions;
 
-public static class OptionsBuilderFluentValidationExtensions
+internal static class OptionsBuilderFluentValidationExtensions
 {
     public static OptionsBuilder<TOptions> ValidateFluentValidation<TOptions>(
       this OptionsBuilder<TOptions> optionsBuilder) where TOptions : class

@@ -9,6 +9,7 @@ public class FullName : IEquatable<FullName>
     /// Имя пользователя
     /// </summary>
     public string FirstName { get; private set; }
+
     /// <summary>
     /// Отчество пользователя
     /// </summary>
