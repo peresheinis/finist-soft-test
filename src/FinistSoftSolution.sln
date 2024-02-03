@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic.Core", "Finis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kernel.Shared", "FinistSoftSolution.Kernel\Kernel.Shared\Kernel.Shared.csproj", "{82664123-1DE5-4FC7-A1D1-FFFDCB5D497A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.API", "FinistSoftSolution.Gateway\Gateway.API\Gateway.API.csproj", "{54F982E7-11F9-441A-82EE-AD85B5146D26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.API", "FinistSoftSolution.Gateway\Gateway.API\Gateway.API.csproj", "{54F982E7-11F9-441A-82EE-AD85B5146D26}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "../deploy/docker-compose.dcproj", "{25361CC2-8F69-490E-834B-AE8D3D7EB66E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{54F982E7-11F9-441A-82EE-AD85B5146D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54F982E7-11F9-441A-82EE-AD85B5146D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54F982E7-11F9-441A-82EE-AD85B5146D26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25361CC2-8F69-490E-834B-AE8D3D7EB66E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25361CC2-8F69-490E-834B-AE8D3D7EB66E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25361CC2-8F69-490E-834B-AE8D3D7EB66E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25361CC2-8F69-490E-834B-AE8D3D7EB66E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,6 @@ using BusinessLogic.Service.Auth.Providers;
 using BusinessLogic.Service.Configurations;
 using BusinessLogic.Service.Mapping;
 using BusinessLogic.Service.Providers;
-using BusinessLogic.Service.Services;
 using BusinessLogic.Service.Validators;
 using Kernel.Shared.Auth;
 using Kernel.Shared.Auth.Interfaces;
@@ -129,7 +128,7 @@ internal static class StartupExtensions
             {
                 ValidateIssuer = true,
                 ValidateActor = false,
-                ValidateLifetime = false,
+                ValidateLifetime = true,
                 ValidateAudience = false,
                 ValidateIssuerSigningKey = true,
                 ClockSkew = TimeSpan.FromMinutes(0),
@@ -142,20 +141,6 @@ internal static class StartupExtensions
 
         builder.Services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
         builder.Services.AddScoped<IPasswordHashProvider, PasswordHashProvider>();
-
-        return builder;
-    }
-
-    /// <summary>
-    /// Настроить <see cref="TenantService"/>
-    /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
-    public static WebApplicationBuilder AddTenantService(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddScoped<TenantService>();
-        builder.Services.AddScoped<ITenantService>(_ => _.GetRequiredService<TenantService>());
-        builder.Services.AddScoped<ITenantSetService>(_ => _.GetRequiredService<TenantService>());
 
         return builder;
     }

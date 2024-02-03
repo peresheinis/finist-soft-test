@@ -6,7 +6,7 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BusinessLogic.Service.ProtosServices;
+namespace BusinessLogic.Service.Services;
 
 public class AccountsService : Accounts.AccountsBase
 {

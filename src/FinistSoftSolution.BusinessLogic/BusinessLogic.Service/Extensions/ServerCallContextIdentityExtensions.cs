@@ -1,10 +1,18 @@
 ﻿using Grpc.Core;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace BusinessLogic.Service.Extensions;
 
 internal static class ServerCallContextIdentityExtensions
 {
-    public static Guid GetUserId(this ServerCallContext context) => Guid
-        .Parse(context.GetHttpContext().User.Claims.First(e => e.Type == JwtRegisteredClaimNames.Sub).Value);
+    public static Guid GetUserId(this ServerCallContext context)
+    {
+        var httpContext = context.GetHttpContext();
+        var userClaimsId = httpContext.User.Claims.First(e => e.Type == ClaimTypes.NameIdentifier);
+
+        var userId = Guid.Parse(userClaimsId.Value);
+
+        return userId;
+    }
 }

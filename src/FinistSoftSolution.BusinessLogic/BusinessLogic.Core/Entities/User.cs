@@ -1,5 +1,4 @@
 ﻿using BusinessLogic.Core.ValueObjects;
-using Kernel.Shared.Exceptions;
 
 namespace BusinessLogic.Core.Entities;
 
@@ -89,9 +88,12 @@ public class User : EntityBase<Guid>
     /// <exception cref="ConflictException"></exception>
     public async Task SetPhoneNumberAsync(string phoneNumber, Func<string, Task<bool>> isPhoneNumberUniqueValidation)
     {
-        if (await isPhoneNumberUniqueValidation(phoneNumber))
+        if (!await isPhoneNumberUniqueValidation(phoneNumber))
         {
-            throw ConflictException.AlreadyExist($"This phone number is already in use.");
+            // Тут нужно выкидывать говорящую ошибку для пользователя,
+            // такую ошибку необходимо обработать в ExceptionMiddleware
+            // и вернуть пользователю ErrorResponse { Message: "Этот номер телефона уже используется" }
+            throw new InvalidOperationException("This phone number is already in use.");
         }
 
         PhoneNumber = phoneNumber;
@@ -126,7 +128,10 @@ public class User : EntityBase<Guid>
 
         if (!await isPhoneNumberUniqueValidation(phoneNumber))
         {
-            throw ConflictException.AlreadyExist($"This phone number is already in use.");
+            // Тут нужно выкидывать говорящую ошибку для пользователя,
+            // такую ошибку необходимо обработать в ExceptionMiddleware
+            // и вернуть пользователю ErrorResponse { Message: "Этот номер телефона уже используется" }
+            throw new InvalidOperationException($"This phone number is already in use.");
         }
 
         return new User(fullName, phoneNumber, password);

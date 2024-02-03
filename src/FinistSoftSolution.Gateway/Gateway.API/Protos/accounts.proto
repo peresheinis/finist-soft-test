@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "BusinessLogic.Service.Protos";
+option csharp_namespace = "Gateway.API.Protos";
 
 import "google/protobuf/empty.proto";
 

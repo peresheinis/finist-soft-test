@@ -5,7 +5,7 @@ using BusinessLogic.Service.Providers;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BusinessLogic.Service.ProtosServices;
+namespace BusinessLogic.Service.Services;
 
 public class AuthorizationService : Authorization.AuthorizationBase
 {
@@ -31,7 +31,7 @@ public class AuthorizationService : Authorization.AuthorizationBase
         if (user is null)
         {
             throw new RpcException(
-                new Status(StatusCode.PermissionDenied, "Не верный логин или пароль"));
+                new Status(StatusCode.Unauthenticated, "Не верный логин или пароль"));
         }
         
         // здесь user.Password как хеш, не стал усложнять
@@ -39,7 +39,7 @@ public class AuthorizationService : Authorization.AuthorizationBase
             request.Password, user.Password)) 
         {
             throw new RpcException(
-                new Status(StatusCode.PermissionDenied, "Не верный логин или пароль"));
+                new Status(StatusCode.Unauthenticated, "Не верный логин или пароль"));
         }
 
         // здесь надо генерировать пару ключей Jwt - токен и Refresh - токен,

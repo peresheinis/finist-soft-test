@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  logic.service:
+    image: ${DOCKER_REGISTRY-}logic
+    build:
+      context: ../src
+      dockerfile: FinistSoftSolution.BusinessLogic/BusinessLogic.Service/Dockerfile
+
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: ../src
+      dockerfile: FinistSoftSolution.Gateway/Gateway.API/Dockerfile
+

@@ -1,0 +1,45 @@
+version: "3.4"
+
+services:
+  logic.service:
+    environment:
+      - Authorization__Issuer=${AuthorizationIssuer:?}
+      - Authorization__SecurityKey=${AuthorizationSecurityKey:?}
+      - Authorization__ExpiresInMinutes=${AuthorizationExpiresInMinutes}
+
+      - InitialUser__FirstName=${InitialUserFirstName:?}
+      - InitialUser__LastName=${InitialUserLastName:?}
+      - InitialUser__MiddleName=${InitialUserMiddleName}
+      - InitialUser__PhoneNumber=${InitialUserPhoneNumber:?}
+      - InitialUser__Password=${InitialUserPassword:?}
+      
+      - PostgresDb__Host=${PostgresHost:?} 
+      - PostgresDb__Port=${PostgresPort} 
+      - PostgresDb__User=${PostgresUser:?} 
+      - PostgresDb__Database=${PostgresDatabase:?} 
+      - PostgresDb__Password=${PostgresPassword:?} 
+
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  gateway.api:
+    environment:
+      - Authorization__Issuer=${AuthorizationIssuer:?}
+      - Authorization__SecurityKey=${AuthorizationSecurityKey:?}
+
+      - Hosts__BusinessLogicServiceHost=http://logic.service:80
+
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
