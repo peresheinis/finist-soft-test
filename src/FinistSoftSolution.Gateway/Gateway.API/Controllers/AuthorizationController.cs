@@ -1,6 +1,8 @@
 using Gateway.API.Consts;
+using Gateway.API.Extensions;
 using Gateway.API.Protos;
 using Gateway.API.Services;
+using Gateway.Shared.Responses;
 using Grpc.Net.ClientFactory;
 using Kernel.Shared.Errors;
 using Microsoft.AspNetCore.Authorization;
@@ -8,9 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Gateway.API.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class AuthorizationController : ControllerBase
+public class AuthorizationController : ApiControllerBase
 {
     private readonly ICookiesWriteService _cookiesService;
     private readonly Authorization.AuthorizationClient _client;
@@ -48,6 +48,13 @@ public class AuthorizationController : ControllerBase
 
         return response.Token;
     }
+
+    [Authorize]
+    [HttpGet("State")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+    public ActionResult<UserStateDto> GetState() => new UserStateDto(HttpContext.GetUserFullName());
 
     // Тут можно реализовать метод SignOut, который
     // будет очищать Authorization Cookies пользователя, а так же

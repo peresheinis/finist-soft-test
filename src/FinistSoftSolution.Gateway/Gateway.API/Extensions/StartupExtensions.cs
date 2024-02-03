@@ -103,6 +103,37 @@ public static class StartupExtensions
     }
 
     /// <summary>
+    /// Добавить Cors 
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <returns></returns>
+    public static WebApplicationBuilder AddCors(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.DefaultPolicyName = "DefaultCors";
+
+            options.AddDefaultPolicy(policy =>
+            {
+                var frontendUrl = builder.Configuration
+                    .GetRequiredSection("Hosts")
+                    .GetValue<string>("Frontend") ??
+                        throw new ArgumentNullException(
+                            "Hosts_Frontend",
+                            "Необходимо передать хост Frontend приложения в переменные окружения.");
+
+                var corsBuilder = policy
+                    .WithOrigins(frontendUrl)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+        });
+
+        return builder;
+    }
+
+    /// <summary>
     /// Добавить авторизацию
     /// </summary>
     /// <param name="builder"></param>

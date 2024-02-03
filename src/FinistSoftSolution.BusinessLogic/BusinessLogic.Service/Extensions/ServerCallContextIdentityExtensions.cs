@@ -1,5 +1,4 @@
 ﻿using Grpc.Core;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace BusinessLogic.Service.Extensions;

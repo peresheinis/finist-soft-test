@@ -3,15 +3,12 @@ using Gateway.API.Protos;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.ClientFactory;
 using Kernel.Shared.Errors;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gateway.API.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class AccountsController : ControllerBase
+public class AccountsController : ApiControllerBase
 {
     private readonly Accounts.AccountsClient _client;
     public AccountsController(GrpcClientFactory grpcClientFactory)
