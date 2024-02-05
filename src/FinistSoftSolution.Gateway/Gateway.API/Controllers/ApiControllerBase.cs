@@ -4,6 +4,6 @@ namespace Gateway.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ApiControllerBase : ControllerBase
+public abstract class ApiControllerBase : ControllerBase
 {
 }

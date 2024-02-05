@@ -11,6 +11,7 @@ internal static class OptionsBuilderFluentValidationExtensions
         optionsBuilder.Services.AddSingleton<IValidateOptions<TOptions>>(
             provider => new FluentValidationOptions<TOptions>(
               optionsBuilder.Name, provider));
+
         return optionsBuilder;
     }
 }

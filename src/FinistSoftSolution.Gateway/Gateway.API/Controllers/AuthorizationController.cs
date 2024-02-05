@@ -49,6 +49,10 @@ public class AuthorizationController : ApiControllerBase
         return response.Token;
     }
 
+    /// <summary>
+    /// Выполнить запрос на получение состояния пользователя
+    /// </summary>
+    /// <returns></returns>
     [Authorize]
     [HttpGet("State")]
     [ProducesResponseType(StatusCodes.Status200OK)]

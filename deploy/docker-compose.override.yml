@@ -33,7 +33,7 @@ services:
       - Authorization__SecurityKey=${AuthorizationSecurityKey:?}
 
       - Hosts__BusinessLogicServiceHost=http://logic.service:80
-      - Hosts__Frontend=http://localhost:5173
+      - Hosts__FrontendHost=http://localhost:4173
 
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
@@ -42,3 +42,9 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  frontend:
+    container_name: frontend
+    image: lebedeffdeveloper/finist-frontend:0.0.2
+    ports:
+      - "4173:4173"

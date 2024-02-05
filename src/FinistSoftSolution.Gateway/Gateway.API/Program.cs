@@ -1,3 +1,4 @@
+using Gateway.API.Configurations;
 using Gateway.API.Extensions;
 using Gateway.API.Middlewares;
 
@@ -20,8 +21,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(options =>
 {
+    var hosts = app.Configuration
+        .GetSection(HostsSettings.ConfigurationSection)
+        .Get<HostsSettings>() ?? throw new ArgumentNullException(nameof(HostsSettings));
+        
     options
-       .WithOrigins("http://localhost:5173")
+       .WithOrigins(hosts.FrontendHost)
        .AllowAnyHeader()
        .AllowAnyMethod()
        .AllowCredentials();

@@ -88,8 +88,8 @@ internal sealed class InitialUserSeed : SeedBase
     /// <returns></returns>
     private async Task<bool> IsBankAccountUnique(AccountNumber bankAccountNumber)
     {
-        // Тут можно реализовать дополнительный метод
-        // в репозитории IsUniqueByNumber<bool>(bankAccountNumber: string)
+        // Тут можно реализовать метод
+        // в репозитории IsUniqueByNumber<bool>(bankAccountNumber: string) вместо текущего
 
         var account = await _bankAccountsRepository.GetByNumberAsync(bankAccountNumber.Value);
 
@@ -100,9 +100,8 @@ internal sealed class InitialUserSeed : SeedBase
     /// Зарандомить номер карты пользователя
     /// </summary>
     /// <returns></returns>
-    private AccountNumber CreateAccountNumber() => // Так делать не хорошо, рандомить не нужно, можно
-                                                   // сделать иначе, так как каждые 4 цифры что-то значат (вроде).
-                                                   // Но суть ясна
+    private AccountNumber CreateAccountNumber() => // Так делать не хорошо, рандомить не нужно,
+                                                   // но так как это для теста, то думаю, что сойдёт
         new AccountNumber(
             $"{Random.Shared.Next(1000, 9999)}" +
             $"{Random.Shared.Next(1000, 9999)}" +

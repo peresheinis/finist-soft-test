@@ -5,14 +5,18 @@ option csharp_namespace = "Gateway.API.Protos";
 package authorization;
 
 service Authorization {
+  // Выполнить вход в аккаунт
   rpc SignIn (SignInRequest) returns (SignInResponse);
 }
 
 message SignInRequest {
+  // Номер телефона пользователя
   string phoneNumber = 1;
+  // Пароль пользователя
   string password = 2;
 }
 
 message SignInResponse {
+  // Jwt - токен для аутентификации пользователя
   string token = 1;
 }

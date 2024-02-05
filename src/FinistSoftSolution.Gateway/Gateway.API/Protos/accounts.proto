@@ -7,6 +7,7 @@ import "google/protobuf/empty.proto";
 package accounts;
 
 service Accounts {
+	// Получить все банковские счета пользователя
 	rpc GetAll (google.protobuf.Empty) returns (GetAllAccountsResponse);
 }
 
@@ -15,14 +16,17 @@ message GetAllAccountsResponse {
 }
 
 message BankAccountModel {
-	string id = 1;
-	string userId = 2;
+	// Номер счёта
 	string accountNumber = 3;
+	// Тип счёта
 	BankAccountType accountType = 4;
 }
 
 enum BankAccountType {
+	// Срочный
 	Urgent = 0;
+	// До востребования
 	OnDemand = 1;
+	// Карточный
 	Card = 2;
 }

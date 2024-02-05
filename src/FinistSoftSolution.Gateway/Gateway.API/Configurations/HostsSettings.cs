@@ -11,4 +11,9 @@ public class HostsSettings
     /// Хост до сервиса BusinessLogic
     /// </summary>
     public string BusinessLogicServiceHost { get; set; } = null!;
+
+    /// <summary>
+    /// Хост фронтенда
+    /// </summary>
+    public string FrontendHost { get; set; } = null!;
 }

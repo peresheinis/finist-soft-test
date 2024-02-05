@@ -13,3 +13,6 @@ services:
       context: ../src
       dockerfile: FinistSoftSolution.Gateway/Gateway.API/Dockerfile
 
+  frontend:
+    image: ${DOCKER_REGISTRY-}gateway
+

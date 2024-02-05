@@ -43,7 +43,7 @@ public class ExceptionHandlerMiddleware
 
             await httpContext.Response.WriteAsJsonAsync(errorResponse);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             var errorResponse = new ErrorResponse
             {
